@@ -1,2 +1,2 @@
-au BufRead,BufNewFile *.mon set filetype=epl
-au BufRead,BufNewFile *.evt set filetype=epl
+autocmd BufRead,BufNewFile *.mon setlocal filetype=epl
+autocmd BufRead,BufNewFile *.evt setlocal filetype=epl
