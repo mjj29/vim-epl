@@ -41,7 +41,8 @@ function! SyntaxCheckers_epl_correlator_GetLocList() dict " {{{1
 
 	" TODO
 	let errorformat = 
-		\ '%.%# ERROR %.%# - %f: Error on line %l: %m'
+		\ '%.%# ERROR %.%# - %f: Error on line %l: %m,'.
+		\ '%.%# ERROR %.%# - %f: Syntax error on line %l: %m'
 
 	if has('win32')
 		let env = { 'PATH': g:syntastic_epl_correlator_src . '\output-amd64-win-release\SoftwareAG\Apama\bin;'. g:syntastic_epl_correlator_src .'\..\apama-lib5\branched\win\amd64\10.11.0.x\saginstallation\jvm\jvm\bin\server', 'APAMA_HOME':g:syntastic_epl_correlator_src.'\output-amd64-win-release\SoftwareAG\Apama'  }
