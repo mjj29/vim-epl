@@ -9,3 +9,9 @@ It can be installed using the Plugged plugin manager. Just add this to your .vim
 	call plug#end()
 
 It will be active for any `.mon` or `.evt` files.
+
+Also included is an extension to the Syntastic plugin to do compilation with EPL and show you errors. Currently this is only available for Apama internal developers. To enable it, add the following to your .vimrc:
+
+	let g:syntastic_epl_checkers=['correlator']
+	" optional, will automatically detect if CWD is under apama-src or apama-test
+	let g:syntastic_epl_correlator_src='/path/to/apama-src'
