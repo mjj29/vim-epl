@@ -9,7 +9,7 @@ let s:save_cpo = &cpo
 set cpo&vim
 
 if !exists('g:syntastic_epl_correlator_src')
-	let g:syntastic_epl_correlator_src=fnamemodify(fnamemodify(findfile("root.xpybuild.py", ".;"), ":p:h"), ":p:h")."/apama-src"
+	let g:syntastic_epl_correlator_src=fnamemodify(findfile("root.xpybuild.py", ".;"), ":p:h:h")."/apama-src"
 endif
 
 if !exists('g:syntastic_epl_correlator_executable')
@@ -46,7 +46,7 @@ function! SyntaxCheckers_epl_correlator_GetLocList() dict " {{{1
 	if has('win32')
 		let env = { 'PATH': g:syntastic_epl_correlator_src . '\output-amd64-win-release\SoftwareAG\Apama\bin;'. g:syntastic_epl_correlator_src .'\..\apama-lib5\branched\win\amd64\10.11.0.x\saginstallation\jvm\jvm\bin\server', 'APAMA_HOME':g:syntastic_epl_correlator_src.'\output-amd64-win-release\SoftwareAG\Apama'  }
 	else
-		let env = { 'LD_LIBRARY_PATH': g:syntastic_epl_correlator_src . '/output-amd64-win-rhel8/SoftwareAG/Apama/bin:'. g:syntastic_epl_correlator_src .'/../apama-lib5/branched/linux/amd64/10.11.0.x/saginstallation/jvm/jvm/bin/server', 'APAMA_HOME':g:syntastic_epl_correlator_src.'/output-amd64-rhel8-release/SoftwareAG/Apama'  }
+		let env = { 'LD_LIBRARY_PATH': g:syntastic_epl_correlator_src . '/output-amd64-rhel8-release/SoftwareAG/Apama/lib:'. g:syntastic_epl_correlator_src .'/../apama-lib5/branched/linux/amd64/10.11.0.x/saginstallation/jvm/jvm/lib/server', 'APAMA_HOME':g:syntastic_epl_correlator_src.'/output-amd64-rhel8-release/SoftwareAG/Apama'  }
 	endif
 
 	let errors = SyntasticMake({
