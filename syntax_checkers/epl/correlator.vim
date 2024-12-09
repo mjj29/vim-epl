@@ -20,6 +20,32 @@ if !exists('g:syntastic_epl_correlator_executable')
 	endif
 endif
 
+let g:syntastic_epl_platform_monitors = [
+      \ 'AnyExtractor.mon',
+      \ 'ConnectivityPluginsControl.mon',
+      \ 'ConnectivityPlugins.mon',
+      \ 'HTTPClientEvents.mon',
+      \ 'ManagementImpl.mon',
+      \ 'Management.mon',
+      \ 'TimeZone.mon',
+      \ 'TimeFormatEvents.mon',
+      \ 'cumulocity/Cumulocity_EventDefinitions.mon',
+      \ 'cumulocity/Cumulocity_Utils.mon',
+      \ 'cumulocity/Cumulocity_RequestInterface.mon',
+      \ 'cumulocity/Cumulocity_TenantSupport.mon',
+      \ 'cumulocity/Cumulocity_Rest_API.mon',
+      \ 'Functional.mon',
+      \ 'TolerateAPI.mon',
+      \ 'Notifications2.0Events.mon',
+      \ 'Notifications2.0Subscriptions.mon'
+      \ ]
+
+if has('win32')
+	let g:syntastic_epl_platform_monitors_paths = map(g:syntastic_epl_platform_monitors, {_, val -> g:syntastic_epl_correlator_src.'\output-amd64-win-release\SoftwareAG\Apama\monitors\'.val})
+else
+	let g:syntastic_epl_platform_monitors_paths = map(g:syntastic_epl_platform_monitors, {_, val -> g:syntastic_epl_correlator_src.'/output-amd64-rhel8-release/SoftwareAG/Apama/monitors/'.val})
+endif
+
 if !exists('g:syntastic_epl_correlator_options')
 	if has('win32')
 		let g:syntastic_epl_correlator_options='-l '. g:syntastic_epl_correlator_src .'\..\apama-test\tools\output-amd64-win-release\apwork\license\ApamaServerLicense.xml'
@@ -33,9 +59,9 @@ function! SyntaxCheckers_epl_correlator_IsAvailable() dict "{{{1
 endfunction " }}}1
 
 function! SyntaxCheckers_epl_correlator_GetLocList() dict " {{{1
-	let fname = expand('%:p:h', 1) . syntastic#util#Slash().expand('%:t', 1)
+	let fname = expand('%:p:h', 1) . syntastic#util#Slash() . expand('%:t', 1)
 	let makeprg = self.makeprgBuild({
-		\ 'args_before': g:syntastic_epl_correlator_options,
+		\ 'args_before': g:syntastic_epl_correlator_options . ' ' . join(g:syntastic_epl_platform_monitors_paths, ' '),
 		\ 'exe': g:syntastic_epl_correlator_executable,
 		\ 'fname': syntastic#util#shescape(fname) })
 
